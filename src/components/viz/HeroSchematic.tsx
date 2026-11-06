@@ -4,90 +4,74 @@ import { motion, useReducedMotion } from "motion/react";
 
 export function HeroSchematic() {
   const reduce = useReducedMotion();
-  const duration = reduce ? 0 : 1.4;
+  const duration = reduce ? 0 : 1.2;
 
   return (
-    <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
-      <svg
-        viewBox="0 0 1440 900"
-        className="absolute inset-0 h-full w-full"
-        preserveAspectRatio="xMaxYMid slice"
-      >
+    <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] md:block" aria-hidden="true">
+      <svg viewBox="0 0 640 480" className="h-full w-full" preserveAspectRatio="xMidYMid meet">
         <motion.path
-          d="M780 820 V520 H980 V360 H1120 V210"
+          d="M80 430 V250 H210 V150 H340 V70"
           fill="none"
           stroke="#d4b45c"
-          strokeWidth="1"
-          strokeDasharray="4 6"
+          strokeWidth="1.2"
           initial={{ pathLength: reduce ? 1 : 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.7 }}
-          transition={{ duration, delay: 0.6, ease: "easeInOut" }}
+          animate={{ pathLength: 1, opacity: 0.85 }}
+          transition={{ duration, delay: 0.35, ease: "easeInOut" }}
         />
         <motion.path
-          d="M820 820 V610 H1040 V280 H1180"
+          d="M120 430 V300 H260 V190 H460"
           fill="none"
           stroke="#c8571d"
-          strokeWidth="1"
+          strokeWidth="1.2"
           initial={{ pathLength: reduce ? 1 : 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.55 }}
-          transition={{ duration, delay: 0.85, ease: "easeInOut" }}
+          animate={{ pathLength: 1, opacity: 0.7 }}
+          transition={{ duration, delay: 0.5, ease: "easeInOut" }}
         />
         <motion.path
-          d="M860 820 V700 H920 V480 H1280 V330"
+          d="M160 430 V340 H300 V230 H520 V120"
           fill="none"
           stroke="#8a9640"
-          strokeWidth="1"
+          strokeWidth="1.2"
           initial={{ pathLength: reduce ? 1 : 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.5 }}
-          transition={{ duration, delay: 1.05, ease: "easeInOut" }}
+          animate={{ pathLength: 1, opacity: 0.75 }}
+          transition={{ duration, delay: 0.65, ease: "easeInOut" }}
         />
-
         {[
-          [980, 360],
-          [1120, 210],
-          [1040, 280],
-          [1180, 280],
-          [1280, 330],
-          [920, 480],
+          [210, 150],
+          [340, 70],
+          [260, 190],
+          [460, 190],
+          [300, 230],
         ].map(([x, y], index) => (
           <motion.g
             key={`${x}-${y}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: reduce ? 0 : 1.2 + index * 0.08 }}
+            transition={{ delay: reduce ? 0 : 0.9 + index * 0.06 }}
           >
-            <circle cx={x} cy={y} r="3.5" fill="#0b1424" stroke="#d4b45c" />
-            <path
-              d={`M${x - 7} ${y} H${x + 7} M${x} ${y - 7} V${y + 7}`}
-              stroke="#d4b45c"
-              strokeWidth="0.8"
-            />
+            <circle cx={x} cy={y} r="3.2" fill="#0b1424" stroke="#d4b45c" />
           </motion.g>
         ))}
-
         <motion.g
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.9 }}
-          transition={{ delay: reduce ? 0 : 1.6 }}
-          fontFamily="IBM Plex Mono, monospace"
-          fontSize="10"
-          letterSpacing="0.18em"
+          animate={{ opacity: 1 }}
+          transition={{ delay: reduce ? 0 : 1.05 }}
           fill="#d4b45c"
+          fontFamily="IBM Plex Mono, monospace"
+          fontSize="11"
+          letterSpacing="1.4"
         >
-          <text x="990" y="348">
-            LTHW FLOW
+          <text x="224" y="142">
+            LTHW
           </text>
-          <text x="1130" y="198">
-            AHU
-          </text>
-          <text x="1050" y="268">
+          <text x="348" y="64">
             RISER
           </text>
-          <text x="1290" y="324">
-            CONTROLS
-          </text>
-          <text x="790" y="800">
+          <text x="308" y="222">
             PLANT
+          </text>
+          <text x="468" y="182">
+            CONTROLS
           </text>
         </motion.g>
       </svg>

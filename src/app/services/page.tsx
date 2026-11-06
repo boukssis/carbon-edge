@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 import { FinalCta } from "@/components/ui/FinalCta";
 import { PageHero } from "@/components/ui/PageHero";
-import { Reveal } from "@/components/ui/Reveal";
 import { services } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -11,102 +10,115 @@ export const metadata: Metadata = {
     "MEP decarbonisation, mechanical plant replacement, low-carbon heating, BMS upgrades, lifecycle energy analysis and heritage retrofit in London.",
 };
 
+const indexLabel: Record<string, string> = {
+  "mep-decarbonisation": "Decarbonisation",
+  "plant-replacement": "Plant replacement",
+  "low-carbon": "Low-carbon heating",
+  bms: "Building controls",
+  lifecycle: "Lifecycle analysis",
+  validation: "Technical investigation",
+  heritage: "Heritage retrofit",
+  delivery: "Project delivery",
+};
+
 export default function ServicesPage() {
   return (
     <main id="main">
       <PageHero
         eyebrow="Capabilities"
-        title="Technical depth for"
-        titleAccent="existing buildings."
-        lede="Eight areas of work for owners, asset managers and consultants dealing with ageing plant, constrained fabric and the need to lower operational carbon — without pretending every building is ready for the same solution."
+        title="Engineering expertise"
+        titleAccent="for existing buildings."
+        lede="Eight areas of work for owners and consultants dealing with ageing plant, constrained fabric and the need to lower operational carbon."
       />
 
-      <nav
-        aria-label="Service index"
-        className="border-b border-navy-900/10 bg-paper"
-      >
-        <div className="no-scrollbar mx-auto flex max-w-[1440px] gap-2 overflow-x-auto px-4 py-4 sm:px-6 lg:px-10">
-          {services.map((service) => (
-            <a
-              key={service.id}
-              href={`#${service.id}`}
-              className="shrink-0 rounded-full border border-navy-900/15 px-4 py-2 font-mono text-[10px] tracking-[0.16em] text-navy-800 uppercase hover:border-copper hover:text-copper"
-            >
-              {service.index} {service.title}
-            </a>
-          ))}
-        </div>
-      </nav>
+      <div className="on-light bg-cream">
+        <div className="mx-auto max-w-[1240px] px-4 py-12 sm:px-6 lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16 lg:px-8 lg:py-16">
+          <nav aria-label="Service index" className="mb-10 lg:mb-0">
+            <details className="border border-navy-900/10 bg-paper lg:hidden">
+              <summary className="cursor-pointer px-4 py-3 font-mono text-[11px] tracking-[0.16em] text-navy-900 uppercase">
+                Jump to a service
+              </summary>
+              <ul className="border-t border-navy-900/10">
+                {services.map((service) => (
+                  <li key={service.id}>
+                    <a href={`#${service.id}`} className="block px-4 py-3 text-sm text-navy-800 hover:bg-stone">
+                      {service.index} {indexLabel[service.id]}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </details>
 
-      {services.map((service, index) => (
-        <article
-          key={service.id}
-          id={service.id}
-          className={index % 2 === 0 ? "bg-cream" : "bg-paper"}
-        >
-          <div className="mx-auto grid max-w-[1440px] gap-12 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:px-10 lg:py-24">
-            <Reveal className="lg:col-span-5">
-              <p className="font-mono text-[11px] tracking-[0.22em] text-copper">
-                {service.index} — {service.kicker}
-              </p>
-              <h2 className="display-section mt-5">{service.title}</h2>
-              <p className="mt-6 font-serif text-xl leading-snug text-navy-800">
-                {service.intro}
-              </p>
-              <p className="mt-5 text-base leading-relaxed text-charcoal/80">
-                {service.body}
-              </p>
-              <div className="mt-8">
-                <Button href="/contact" variant="ghost">
+            <ul className="sticky top-[calc(var(--header-h)+1.25rem)] hidden space-y-1 lg:block">
+              {services.map((service) => (
+                <li key={service.id}>
+                  <a
+                    href={`#${service.id}`}
+                    className="flex items-baseline gap-3 py-1.5 font-mono text-[11px] tracking-[0.08em] text-charcoal/70 uppercase transition-colors hover:text-copper"
+                  >
+                    <span className="text-copper">{service.index}</span>
+                    {indexLabel[service.id]}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="min-w-0">
+            {services.map((service) => (
+              <article
+                key={service.id}
+                id={service.id}
+                className="scroll-mt-[calc(var(--header-h)+1.25rem)] border-t border-navy-900/10 py-14 first:border-t-0 first:pt-0 lg:py-16"
+              >
+                <p className="font-mono text-[12px] tracking-[0.2em] text-copper">{service.index}</p>
+                <h2 className="mt-3 max-w-2xl font-display text-3xl tracking-tight text-navy-900 md:text-4xl">
+                  {service.title}
+                </h2>
+                <p className="mt-5 max-w-2xl text-base leading-relaxed text-charcoal/80">{service.intro}</p>
+
+                <div className="mt-10 grid gap-10 md:grid-cols-2">
+                  <div>
+                    <p className="font-mono text-[10px] tracking-[0.18em] text-copper uppercase">Key capabilities</p>
+                    <ul className="mt-4 space-y-2.5">
+                      {service.applications.slice(0, 5).map((item) => (
+                        <li key={item} className="border-l border-copper/40 pl-3 text-sm leading-relaxed text-navy-800">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-mono text-[10px] tracking-[0.18em] text-copper uppercase">Why it matters</p>
+                    <ul className="mt-4 space-y-3">
+                      {service.benefits.slice(0, 3).map((item) => (
+                        <li key={item} className="text-sm leading-relaxed text-charcoal/80">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {"note" in service && service.note ? (
+                  <p className="mt-8 max-w-2xl text-sm text-charcoal/70">{service.note}</p>
+                ) : null}
+
+                <Link
+                  href="/contact"
+                  className="mt-8 inline-flex font-mono text-[11px] tracking-[0.16em] text-copper uppercase"
+                >
                   Discuss this capability
-                </Button>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.08} className="space-y-10 lg:col-span-6 lg:col-start-7">
-              <div>
-                <p className="eyebrow">Practical applications</p>
-                <ul className="mt-4 divide-y divide-navy-900/10 border-y border-navy-900/10">
-                  {service.applications.map((item) => (
-                    <li key={item} className="py-3 text-sm text-charcoal/85">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="eyebrow">Technical capabilities</p>
-                <ul className="mt-4 space-y-2">
-                  {service.capabilities.map((item) => (
-                    <li key={item} className="text-sm leading-relaxed text-charcoal/80">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="eyebrow">Client benefits</p>
-                <ul className="mt-4 space-y-2">
-                  {service.benefits.map((item) => (
-                    <li key={item} className="text-sm leading-relaxed text-charcoal/80">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {"note" in service && service.note ? (
-                <p className="border-l border-gold pl-4 font-mono text-[11px] leading-relaxed tracking-[0.04em] text-copper">
-                  {service.note}
-                </p>
-              ) : null}
-            </Reveal>
+                </Link>
+              </article>
+            ))}
           </div>
-        </article>
-      ))}
+        </div>
+      </div>
 
       <FinalCta
         title="Start with the existing conditions."
-        copy="If a building’s plant is at the end of its life, or a retrofit option needs an honest assessment, tell us what you are working on."
+        copy="If the plant is at the end of its life, or a retrofit option needs an honest look, tell us what you are working on."
       />
     </main>
   );

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Instrument_Serif, Inter, Sora } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { PreviewBanner } from "@/components/layout/PreviewBanner";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -33,7 +32,7 @@ const ibm = IBM_Plex_Mono({
 });
 
 const metadataBase = new URL(
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://carbon-edge-preview.local",
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://carbon-edge-one.vercel.app",
 );
 
 export const metadata: Metadata = {
@@ -132,7 +131,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        <PreviewBanner />
         <Header />
         <div className="flex min-h-full flex-col">{children}</div>
         <Footer />

@@ -3,7 +3,7 @@
 import { useActionState, type ReactNode } from "react";
 import { submitEnquiry } from "@/app/actions/contact";
 import { initialEnquiryState } from "@/lib/contact";
-import { buildingTypes, projectStages, serviceOptions, site } from "@/lib/site";
+import { buildingTypes, projectStages, serviceOptions } from "@/lib/site";
 
 function Field({
   label,
@@ -40,31 +40,11 @@ export function EnquiryForm() {
 
   if (state.status === "preview") {
     return (
-      <div className="border border-gold/40 bg-cream px-6 py-10">
-        <p className="font-mono text-[11px] tracking-[0.2em] text-copper uppercase">
-          Preview only
-        </p>
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-navy-800">
+      <div className="border border-navy-900/10 bg-white px-6 py-10">
+        <p className="font-mono text-[11px] tracking-[0.18em] text-copper uppercase">Enquiry received</p>
+        <p className="mt-4 max-w-xl font-serif text-2xl leading-snug text-navy-900">
           {state.message}
         </p>
-        <div className="mt-6 flex flex-col gap-2 text-sm">
-          <a
-            className="text-copper underline"
-            href={site.companyLinkedin}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Company LinkedIn
-          </a>
-          <a
-            className="text-copper underline"
-            href={site.founder.linkedin}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Ashlee Rising on LinkedIn
-          </a>
-        </div>
       </div>
     );
   }
@@ -133,11 +113,6 @@ export function EnquiryForm() {
           {state.message}
         </p>
       ) : null}
-
-      <p className="text-xs leading-relaxed text-charcoal/65">
-        Submissions are not emailed from this preview. No confidential project
-        information should be sent until Carbon Edge authorises a live website.
-      </p>
 
       <button
         type="submit"

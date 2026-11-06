@@ -4,69 +4,67 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { RetrofitVisual } from "@/components/viz/RetrofitVisual";
-import {
-  approachSteps,
-  expertiseStrip,
-  fieldActivity,
-  homeServices,
-  sectors,
-  site,
-} from "@/lib/site";
+import { expertiseStrip, fieldActivity, homeServices, sectors, site } from "@/lib/site";
+
+const featuredSectors = [sectors[0], sectors[1], sectors[2]];
+const featuredActivity = [fieldActivity[0], fieldActivity[2]];
 
 export function ExpertiseStrip() {
   return (
-    <section className="overflow-hidden border-y border-gold/15 bg-navy-900">
-      <div className="flex gap-0 whitespace-nowrap py-4">
-        {[0, 1].map((copy) => (
-          <div key={copy} className="flex min-w-full animate-none items-center justify-around">
-            {expertiseStrip.map((item) => (
-              <span
-                key={`${copy}-${item}`}
-                className="flex items-center gap-8 px-6 font-mono text-[11px] tracking-[0.28em] text-gold uppercase"
-              >
-                {item}
-                <span className="text-copper-mid">/</span>
+    <section className="border-b border-white/10 bg-navy-900" aria-label="Expertise">
+      <ul className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-center gap-x-0 px-4 py-3.5 sm:px-6 lg:flex-nowrap lg:justify-between lg:px-8">
+        {expertiseStrip.map((item, index) => (
+          <li key={item} className="flex items-center">
+            {index > 0 ? (
+              <span className="mx-3 hidden text-copper/80 lg:inline" aria-hidden>
+                /
               </span>
-            ))}
-          </div>
+            ) : null}
+            <span className="px-2 py-1 font-mono text-[10px] tracking-[0.2em] text-gold uppercase sm:text-[11px]">
+              {item}
+            </span>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
 
 export function Introduction() {
   return (
-    <section className="bg-cream">
-      <div className="mx-auto grid max-w-[1440px] gap-12 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:px-10 lg:py-28">
-        <Reveal className="lg:col-span-5">
-          <p className="eyebrow">03 — Introduction</p>
-          <h2 className="display-section mt-6">
+    <section className="on-light bg-cream">
+      <div className="mx-auto grid max-w-[1320px] items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-8 lg:py-24">
+        <Reveal className="lg:col-span-6">
+          <p className="eyebrow">The practice</p>
+          <h2 className="display-section mt-5">
             London’s buildings have a past.
             <br />
             <span className="text-copper">We help secure their future.</span>
           </h2>
-        </Reveal>
-        <Reveal delay={0.1} className="lg:col-span-6 lg:col-start-7">
-          <p className="font-serif text-2xl leading-snug text-navy-800 md:text-[1.75rem]">
-            The city’s commercial stock cannot be demolished into a lower-carbon
-            future. The work is in the plant rooms, risers and controls behind
-            facades that London intends to keep.
-          </p>
-          <div className="mt-8 space-y-4 text-base leading-relaxed text-charcoal/80">
+          <div className="mt-6 max-w-xl space-y-4 text-base leading-relaxed text-charcoal/85">
             <p>
-              Carbon Edge is a specialist building-services contractor focused on
-              the modernisation of existing commercial buildings: MEP retrofit,
-              plant replacement, and practical decarbonisation.
+              Carbon Edge modernises the mechanical and electrical systems behind facades London intends to keep. The work is retrofit, plant replacement and practical decarbonisation.
             </p>
             <p>
-              Ageing infrastructure, limited plant space and occupied buildings
-              are the starting conditions — not obstacles to be wished away.
-              Engineering-led retrofit keeps architectural character while
-              bringing services forward.
+              Ageing plant, limited space and occupied buildings are the starting conditions. The engineering respects the architecture and improves how the building performs.
             </p>
           </div>
-          <p className="mt-8 font-serif text-xl text-navy-800">{site.tagline}</p>
+        </Reveal>
+        <Reveal delay={0.08} className="lg:col-span-5 lg:col-start-8">
+          <figure>
+            <div className="relative aspect-[4/5] overflow-hidden bg-navy-900">
+              <Image
+                src="/images/british-museum.jpg"
+                alt="The British Museum colonnade. Illustrative imagery, not a Carbon Edge project."
+                fill
+                sizes="(min-width:1024px) 36vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="mt-3 font-mono text-[10px] tracking-[0.16em] text-charcoal/50 uppercase">
+              Illustrative imagery
+            </figcaption>
+          </figure>
         </Reveal>
       </div>
     </section>
@@ -75,41 +73,47 @@ export function Introduction() {
 
 export function ServicesRows() {
   return (
-    <section className="bg-paper">
-      <div className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-        <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+    <section className="on-light bg-paper">
+      <div className="mx-auto max-w-[1320px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <Reveal className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
-            <p className="eyebrow">04 — Capabilities</p>
-            <h2 className="display-section mt-5 max-w-xl">
-              Six ways we meet an existing building.
-            </h2>
+            <p className="eyebrow">Capabilities</p>
+            <h2 className="display-section mt-4 max-w-xl">How we improve an existing building.</h2>
           </div>
-          <Button href="/services" variant="ghost">
+          <Link
+            href="/services"
+            className="group inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] text-copper uppercase"
+          >
             All capabilities
-          </Button>
+            <ArrowUpRight className="btn-arrow h-4 w-4" strokeWidth={1.6} />
+          </Link>
         </Reveal>
 
-        <ul className="mt-14">
+        <ul className="mt-10 border-t border-navy-900/10">
           {homeServices.map((service) => (
-            <li key={service.index} className="border-t border-navy-900/10 last:border-b">
+            <li key={service.href}>
               <Link
                 href={service.href}
-                className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 py-7 md:grid-cols-[5rem_1fr_auto] md:gap-10 md:py-9"
+                className="group grid grid-cols-[2.5rem_1fr_auto] items-start gap-x-4 gap-y-2 border-b border-navy-900/10 py-6 transition-colors duration-300 hover:border-copper/50 hover:bg-[color-mix(in_srgb,var(--copper)_8%,white)] focus-visible:border-copper focus-visible:bg-[color-mix(in_srgb,var(--copper)_10%,white)] sm:grid-cols-[4.5rem_1fr_auto] sm:items-center sm:gap-8 sm:py-8"
               >
-                <span className="font-mono text-[11px] tracking-[0.2em] text-copper">
+                <span className="relative font-mono text-[12px] tracking-[0.16em] text-copper">
+                  <span
+                    className="absolute top-0 -left-3 hidden h-full w-px origin-center scale-y-0 bg-copper transition-transform duration-300 group-hover:scale-y-100 group-focus-visible:scale-y-100 sm:block"
+                    aria-hidden
+                  />
                   {service.index}
                 </span>
-                <span>
-                  <span className="font-display block text-xl tracking-tight text-navy-900 md:text-3xl">
+                <span className="min-w-0">
+                  <span className="font-display block text-xl tracking-tight text-navy-900 transition-colors duration-300 group-hover:text-copper group-focus-visible:text-copper sm:text-2xl lg:text-[1.7rem]">
                     {service.title}
                   </span>
-                  <span className="mt-2 hidden max-w-2xl text-sm leading-relaxed text-charcoal/70 md:block">
+                  <span className="mt-1.5 block max-w-2xl text-sm leading-relaxed text-charcoal/75">
                     {service.summary}
                   </span>
                 </span>
                 <ArrowUpRight
-                  className="h-6 w-6 text-copper transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  strokeWidth={1.4}
+                  className="mt-1 h-5 w-5 text-copper transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-focus-visible:translate-x-1 group-focus-visible:-translate-y-1 sm:mt-0"
+                  strokeWidth={1.5}
                 />
               </Link>
             </li>
@@ -123,24 +127,21 @@ export function ServicesRows() {
 export function LegacyFuture() {
   return (
     <section className="bg-navy-950 text-cream">
-      <div className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-        <Reveal className="max-w-3xl">
-          <p className="eyebrow">05 — Legacy to future</p>
-          <h2 className="display-section mt-5">
+      <div className="mx-auto max-w-[1320px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <Reveal className="max-w-2xl">
+          <p className="eyebrow">From legacy to low carbon</p>
+          <h2 className="display-section mt-4">
             Modern performance.
             <br />
             <span className="text-gold-light">Timeless architecture.</span>
           </h2>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-steel">
-            The facade is not the problem. The hidden services usually are.
-            This is an illustrative view of the journey from legacy building
-            services to modern, efficient systems — not a claim about a
-            particular asset.
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-steel">
+            Explore how ageing building systems can evolve into smarter, more efficient infrastructure.
           </p>
         </Reveal>
-        <Reveal delay={0.12} className="mt-12">
+        <div className="mt-10">
           <RetrofitVisual />
-        </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -148,39 +149,33 @@ export function LegacyFuture() {
 
 export function SectorsPreview() {
   return (
-    <section className="bg-cream">
-      <div className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-        <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+    <section className="on-light bg-cream">
+      <div className="mx-auto max-w-[1320px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <Reveal className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
-            <p className="eyebrow">06 — Sectors</p>
-            <h2 className="display-section mt-5 max-w-2xl">
-              Engineering for London’s complex buildings.
-            </h2>
+            <p className="eyebrow">Sectors</p>
+            <h2 className="display-section mt-4 max-w-xl">Where the building is already complex.</h2>
           </div>
           <Button href="/sectors" variant="ghost">
-            View sectors
+            All sectors
           </Button>
         </Reveal>
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {sectors.map((sector) => (
-            <Link
-              key={sector.id}
-              href={`/sectors#${sector.id}`}
-              className="group relative min-h-[280px] overflow-hidden bg-navy-900 text-cream"
-            >
-              <Image
-                src={sector.image}
-                alt={sector.imageAlt}
-                fill
-                sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
-                className="object-cover opacity-70 transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <p className="font-mono text-[10px] tracking-[0.22em] text-gold">
-                  {sector.index}
-                </p>
-                <h3 className="mt-2 font-display text-2xl tracking-tight">{sector.title}</h3>
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {featuredSectors.map((sector) => (
+            <Link key={sector.id} href={`/sectors#${sector.id}`} className="group block">
+              <div className="relative aspect-[4/5] overflow-hidden bg-navy-900">
+                <Image
+                  src={sector.image}
+                  alt=""
+                  fill
+                  sizes="(min-width:1024px) 30vw, 100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/15 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="font-mono text-[10px] tracking-[0.2em] text-gold">{sector.index}</p>
+                  <h3 className="mt-2 font-display text-2xl tracking-tight text-cream">{sector.title}</h3>
+                </div>
               </div>
             </Link>
           ))}
@@ -190,44 +185,44 @@ export function SectorsPreview() {
   );
 }
 
-export function FieldPreview() {
+export function FieldTeaser() {
   return (
-    <section className="bg-navy-900 text-cream">
-      <div className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-        <Reveal className="max-w-3xl">
-          <p className="eyebrow">07 — Field activity</p>
-          <h2 className="display-section mt-5">Current industry activity, clearly labelled.</h2>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-steel">
-            These are surveys, tenders and site visits drawn from publicly
-            shared updates. They are not completed case studies.
-          </p>
-        </Reveal>
-        <div className="mt-12 grid gap-px bg-gold/15 md:grid-cols-2">
-          {fieldActivity.map((item) => (
+    <section className="on-light border-y border-navy-900/10 bg-stone">
+      <div className="mx-auto max-w-[1320px] px-4 py-14 sm:px-6 lg:px-8">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <p className="eyebrow">In the field</p>
+            <h2 className="mt-3 font-display text-2xl tracking-tight text-navy-900 sm:text-3xl">
+              Current surveys and tenders.
+            </h2>
+          </div>
+          <Link
+            href="/field-work"
+            className="font-mono text-[11px] tracking-[0.18em] text-copper uppercase"
+          >
+            Field activity
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {featuredActivity.map((item) => (
             <Link
               key={item.id}
               href={`/field-work#${item.id}`}
-              className="group bg-navy-950 p-7 transition-colors hover:bg-navy-800"
+              className="group border border-navy-900/10 bg-cream p-6 transition-colors duration-300 hover:border-copper/40"
             >
-              <div className="flex items-center justify-between gap-4">
-                <span className="font-mono text-[10px] tracking-[0.2em] text-gold">
-                  {item.index} · {item.location}
+              <div className="flex items-center justify-between gap-3">
+                <span className="font-mono text-[10px] tracking-[0.16em] text-copper uppercase">
+                  {item.location}
                 </span>
-                <span className="rounded-full border border-gold/30 px-3 py-1 font-mono text-[9px] tracking-[0.16em] text-gold uppercase">
+                <span className="rounded-full border border-copper/30 px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] text-navy-800 uppercase">
                   {item.status}
                 </span>
               </div>
-              <h3 className="mt-6 font-display text-2xl tracking-tight group-hover:text-copper-light">
+              <h3 className="mt-4 font-display text-xl tracking-tight text-navy-900 group-hover:text-copper">
                 {item.title}
               </h3>
-              <p className="mt-4 text-sm leading-relaxed text-steel">{item.summary}</p>
             </Link>
           ))}
-        </div>
-        <div className="mt-10">
-          <Button href="/field-work" variant="secondary">
-            Read field activity
-          </Button>
         </div>
       </div>
     </section>
@@ -236,83 +231,39 @@ export function FieldPreview() {
 
 export function FounderIntro() {
   return (
-    <section className="bg-cream">
-      <div className="mx-auto grid max-w-[1440px] items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:px-10 lg:py-28">
-        <Reveal className="relative lg:col-span-5">
-          <div className="relative aspect-[4/5] overflow-hidden bg-navy-900">
-            <Image
-              src="/brand/ashlee-rising.jpg"
-              alt="Ashlee Rising, Founder and Director of Carbon Edge Building Services"
-              fill
-              sizes="(min-width:1024px) 40vw, 100vw"
-              className="object-cover object-top"
-            />
-          </div>
-          <p className="mt-3 font-mono text-[10px] tracking-[0.16em] text-copper uppercase">
-            Ashlee Rising · Founder & Director
-          </p>
+    <section className="on-light bg-cream">
+      <div className="mx-auto grid max-w-[1320px] items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-24">
+        <Reveal className="lg:col-span-4">
+          <figure className="mx-auto w-full max-w-[320px] lg:mx-0">
+            <div className="relative aspect-square overflow-hidden bg-navy-900">
+              <Image
+                src="/brand/ashlee-rising.jpg"
+                alt="Ashlee Rising, Founder and Director of Carbon Edge Building Services"
+                fill
+                sizes="320px"
+                className="object-cover object-center"
+              />
+            </div>
+          </figure>
         </Reveal>
-        <Reveal delay={0.1} className="lg:col-span-6 lg:col-start-7">
-          <p className="eyebrow">08 — Founder</p>
-          <h2 className="display-section mt-5">
-            Built on experience.
-            <br />
-            Focused on the future.
-          </h2>
-          <p className="mt-6 text-base leading-relaxed text-charcoal/80">
-            {site.founder.experience} That experience belongs to Ashlee, not to
-            the company: Carbon Edge was incorporated in 2026 to concentrate on
-            the retrofit and decarbonisation of London’s existing buildings.
+        <Reveal delay={0.08} className="lg:col-span-7 lg:col-start-6">
+          <p className="eyebrow">Founder</p>
+          <h2 className="display-section mt-4">Ashlee Rising</h2>
+          <p className="mt-2 font-mono text-[11px] tracking-[0.16em] text-copper uppercase">
+            Founder & Director
           </p>
-          <p className="mt-4 text-base leading-relaxed text-charcoal/80">
-            A hands-on MEP apprenticeship at sixteen became a career in
-            estimating, commercial management and senior delivery leadership.
-            The founding idea is simple: keep the character of the city’s
-            buildings, and change the systems that make them expensive, carbon
-            intensive and hard to run.
+          <p className="mt-6 max-w-xl font-serif text-2xl leading-snug text-navy-800">
+            {site.founder.experience}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-charcoal/80">
+            Carbon Edge was incorporated in 2026 to concentrate that experience on London’s existing buildings: practical engineering, careful retrofit and lower-carbon plant.
+          </p>
+          <div className="mt-8">
             <Button href="/about" variant="ghost">
-              About Ashlee
-            </Button>
-            <Button href={site.founder.linkedin} variant="ghost">
-              LinkedIn
+              About the practice
             </Button>
           </div>
         </Reveal>
-      </div>
-    </section>
-  );
-}
-
-export function HowWeWork() {
-  return (
-    <section className="bg-paper">
-      <div className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-        <Reveal>
-          <p className="eyebrow">09 — How we work</p>
-          <h2 className="display-section mt-5 max-w-2xl">
-            From existing conditions to future performance.
-          </h2>
-          <p className="mt-5 max-w-2xl text-sm leading-relaxed text-charcoal/70">
-            A practical sequence for complex building modernisation — not a
-            proprietary methodology.
-          </p>
-        </Reveal>
-        <ol className="mt-14 grid gap-px bg-navy-900/10 md:grid-cols-5">
-          {approachSteps.map((step) => (
-            <li key={step.index} className="bg-paper p-6">
-              <p className="font-mono text-[11px] tracking-[0.2em] text-copper">{step.index}</p>
-              <h3 className="mt-4 font-display text-xl tracking-tight">{step.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-charcoal/75">{step.summary}</p>
-            </li>
-          ))}
-        </ol>
-        <div className="mt-10">
-          <Button href="/approach" variant="ghost">
-            Our approach
-          </Button>
-        </div>
       </div>
     </section>
   );

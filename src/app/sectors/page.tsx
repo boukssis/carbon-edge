@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { FinalCta } from "@/components/ui/FinalCta";
 import { PageHero } from "@/components/ui/PageHero";
-import { Reveal } from "@/components/ui/Reveal";
 import { sectors } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -18,77 +17,56 @@ export default function SectorsPage() {
         eyebrow="Sectors"
         title="Engineering solutions for"
         titleAccent="London’s complex buildings."
-        lede="These are the types of buildings where ageing services, occupation and fabric constraints tend to collide. They are relevant sectors — not a claim that Carbon Edge has completed a named project in each one."
+        lede="The building types where ageing services, occupation and fabric tend to collide."
       />
 
-      {sectors.map((sector, index) => (
-        <article
-          key={sector.id}
-          id={sector.id}
-          className={index % 2 === 0 ? "bg-cream" : "bg-navy-950 text-cream"}
-        >
-          <div className="mx-auto grid max-w-[1440px] items-stretch gap-0 lg:grid-cols-12">
-            <div
-              className={`relative min-h-[320px] lg:col-span-5 ${
-                index % 2 === 1 ? "lg:order-2" : ""
-              }`}
-            >
-              <Image
-                src={sector.image}
-                alt={sector.imageAlt}
-                fill
-                sizes="(min-width:1024px) 42vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div
-              className={`px-4 py-16 sm:px-8 lg:col-span-7 lg:px-14 lg:py-24 ${
-                index % 2 === 1 ? "lg:order-1" : ""
-              }`}
-            >
-              <Reveal>
-                <p
-                  className={`font-mono text-[11px] tracking-[0.22em] ${
-                    index % 2 === 1 ? "text-gold" : "text-copper"
-                  }`}
-                >
-                  {sector.index}
+      <div className="on-light bg-cream">
+        {sectors.map((sector, index) => (
+          <article
+            key={sector.id}
+            id={sector.id}
+            className={`border-t border-navy-900/10 ${index % 2 === 1 ? "bg-stone" : "bg-cream"}`}
+          >
+            <div className="mx-auto grid max-w-[1240px] items-center gap-8 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:gap-14 lg:px-8 lg:py-20">
+              <figure className={index % 2 === 1 ? "lg:order-2 lg:col-span-5" : "lg:col-span-5"}>
+                <div className="relative aspect-[5/4] overflow-hidden bg-navy-900">
+                  <Image
+                    src={sector.image}
+                    alt={sector.imageAlt}
+                    fill
+                    sizes="(min-width:1024px) 40vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="mt-3 font-mono text-[10px] tracking-[0.16em] text-charcoal/50 uppercase">
+                  Illustrative imagery
+                </figcaption>
+              </figure>
+
+              <div className={index % 2 === 1 ? "lg:order-1 lg:col-span-7" : "lg:col-span-7"}>
+                <p className="font-mono text-[11px] tracking-[0.2em] text-copper">{sector.index}</p>
+                <h2 className="mt-3 font-display text-3xl tracking-tight text-navy-900 md:text-4xl">
+                  {sector.title}
+                </h2>
+                <p className="mt-4 max-w-xl font-serif text-xl leading-snug text-navy-800">{sector.headline}</p>
+                <p className="mt-5 max-w-xl text-base leading-relaxed text-charcoal/80">{sector.copy}</p>
+                <p className="mt-8 font-mono text-[10px] tracking-[0.18em] text-copper uppercase">
+                  Typical challenges
                 </p>
-                <h2 className="display-section mt-4">{sector.title}</h2>
-                <p
-                  className={`mt-4 font-serif text-xl leading-snug ${
-                    index % 2 === 1 ? "text-cream/90" : "text-navy-800"
-                  }`}
-                >
-                  {sector.headline}
-                </p>
-                <p
-                  className={`mt-6 max-w-2xl text-base leading-relaxed ${
-                    index % 2 === 1 ? "text-steel" : "text-charcoal/80"
-                  }`}
-                >
-                  {sector.copy}
-                </p>
-                <p className="eyebrow mt-10">Typical challenges</p>
-                <ul className="mt-4 space-y-2">
+                <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                   {sector.challenges.map((item) => (
-                    <li
-                      key={item}
-                      className={`text-sm leading-relaxed ${
-                        index % 2 === 1 ? "text-mist" : "text-charcoal/80"
-                      }`}
-                    >
-                      — {item}
+                    <li key={item} className="border-t border-navy-900/10 pt-3 text-sm leading-relaxed text-charcoal/80">
+                      {item}
                     </li>
                   ))}
                 </ul>
-              </Reveal>
+              </div>
             </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        ))}
+      </div>
 
-      <FinalCta title="Tell us about the building, not the sector label." />
+      <FinalCta title="Tell us about the building." copy="The useful brief is the plant, the fabric and how the building has to stay in use." />
     </main>
   );
 }

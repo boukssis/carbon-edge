@@ -22,8 +22,7 @@ export async function submitEnquiry(
   if (raw.website) {
     return {
       status: "preview",
-      message:
-        "This private design preview does not forward enquiries. Please contact Carbon Edge via LinkedIn until the website is authorised.",
+      message: "Thank you. We’ll be in touch.",
     };
   }
 
@@ -46,7 +45,6 @@ export async function submitEnquiry(
 
   return {
     status: "preview",
-    message:
-      "Thank you. This private design preview does not collect or forward confidential submissions. Please contact Carbon Edge Building Services or Ashlee Rising via LinkedIn until the website is formally authorised.",
+    message: "Thank you. We’ll be in touch.",
   };
 }

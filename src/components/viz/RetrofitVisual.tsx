@@ -1,29 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { ArrowLeftRight } from "lucide-react";
+import { useState, type KeyboardEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 const legacy = {
-  label: "Legacy systems",
-  kicker: "The building as found",
-  copy: "Ageing boiler plant, limited controls and a maintenance culture of keeping yesterday’s equipment alive for one more season.",
-  nodes: [
-    { title: "Existing boiler plant", body: "Multiple ageing boilers, often surviving on patch-and-repair rather than a planned replacement." },
-    { title: "Limited controls", body: "Partial BMS, local overrides and little visibility of how the system actually runs." },
-    { title: "Inefficient operation", body: "Plant sized and sequenced for a different era of occupancy and energy cost." },
-    { title: "Reactive maintenance", body: "Failures dictate the programme. Capital is spent on keeping the system going, not on changing it." },
+  id: "legacy",
+  label: "Before · Legacy systems",
+  heading: "Legacy systems",
+  copy: "Ageing boiler plant, limited controls, inefficient operation and a maintenance culture that reacts to the next failure.",
+  points: [
+    { title: "Ageing boiler plant", body: "Multiple boilers kept in service by patch repair." },
+    { title: "Limited controls", body: "Partial BMS, local overrides and little visibility." },
+    { title: "Inefficient operation", body: "Plant sequenced for another era of use and energy cost." },
+    { title: "Reactive maintenance", body: "Failures set the programme. Capital keeps yesterday’s system alive." },
   ],
 };
 
 const modern = {
-  label: "Modernised systems",
-  kicker: "A considered retrofit",
-  copy: "Efficient plant options, usable controls and a planned sequence that treats energy performance as an engineering outcome, not a slogan.",
-  nodes: [
-    { title: "Efficient plant options", body: "Replacement or hybrid plant selected against the building’s loads, space, power and fabric — including heat pumps where they are viable." },
-    { title: "Modern controls", body: "A control strategy the facilities team can run, with plant monitoring that is actually used." },
-    { title: "Improved monitoring", body: "Visibility of temperatures, plant status and exceptions — the basis for later performance work." },
-    { title: "Planned maintenance", body: "Access, spares and a system that can be maintained, not another generation of emergency repair." },
+  id: "modern",
+  label: "After · Modernised systems",
+  heading: "Modernised systems",
+  copy: "Efficient plant options, integrated controls, clearer monitoring and maintenance that can be planned.",
+  points: [
+    { title: "Modern plant options", body: "Replacement or hybrid plant chosen for the building’s loads, space and power." },
+    { title: "Integrated BMS controls", body: "A strategy the facilities team can actually run." },
+    { title: "Improved monitoring", body: "Temperatures, status and exceptions visible in one place." },
+    { title: "Planned maintenance", body: "Access and a system that can be looked after, not rescued." },
   ],
 };
 
@@ -32,116 +35,133 @@ export function RetrofitVisual() {
   const reduce = useReducedMotion();
   const active = mode === "legacy" ? legacy : modern;
   const accent = mode === "legacy" ? "#c8571d" : "#8a9640";
+  const fill = mode === "legacy" ? "#3a2418" : "#243318";
+
+  const select = (next: "legacy" | "modern") => setMode(next);
+
+  const onKey = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+    event.preventDefault();
+    select(mode === "legacy" ? "modern" : "legacy");
+  };
 
   return (
-    <div className="grid overflow-hidden border border-gold/20 bg-navy-950 text-cream lg:grid-cols-12">
-      <div className="relative lg:col-span-7">
-        <div className="flex items-center justify-between gap-4 border-b border-gold/15 px-5 py-4 sm:px-8">
-          <p className="font-mono text-[10px] tracking-[0.22em] text-gold uppercase">
-            From legacy to low carbon
-          </p>
-          <div className="flex rounded-full border border-gold/25 p-1">
-            <button
-              type="button"
-              onClick={() => setMode("legacy")}
-              className={`rounded-full px-3 py-1.5 font-mono text-[10px] tracking-[0.16em] uppercase transition-colors ${
-                mode === "legacy" ? "bg-copper-mid text-navy-950" : "text-steel hover:text-cream"
-              }`}
-            >
-              Legacy
-            </button>
-            <button
-              type="button"
-              onClick={() => setMode("modern")}
-              className={`rounded-full px-3 py-1.5 font-mono text-[10px] tracking-[0.16em] uppercase transition-colors ${
-                mode === "modern" ? "bg-olive text-navy-950" : "text-steel hover:text-cream"
-              }`}
-            >
-              Modernised
-            </button>
-          </div>
+    <div className="border border-gold/25 bg-navy-900">
+      <div className="border-b border-white/10 px-4 py-5 sm:px-6">
+        <p className="flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-gold uppercase">
+          <ArrowLeftRight className="h-3.5 w-3.5" aria-hidden />
+          Select a system to explore the difference
+        </p>
+        <div
+          className="mt-4 grid gap-2 sm:grid-cols-2"
+          role="group"
+          aria-label="Building system state"
+          onKeyDown={onKey}
+        >
+          {([legacy, modern] as const).map((option) => {
+            const selected = mode === option.id;
+            return (
+              <button
+                key={option.id}
+                type="button"
+                aria-pressed={selected}
+                onClick={() => select(option.id === "modern" ? "modern" : "legacy")}
+                className={`border px-4 py-3 text-left font-mono text-[11px] tracking-[0.12em] uppercase transition-colors duration-300 sm:text-[12px] ${
+                  selected
+                    ? option.id === "legacy"
+                      ? "border-copper bg-copper text-navy-950"
+                      : "border-olive bg-olive text-navy-950"
+                    : "border-white/20 bg-transparent text-cream/80 hover:border-gold/60 hover:text-cream"
+                }`}
+              >
+                {option.label}
+              </button>
+            );
+          })}
         </div>
+      </div>
 
-        <div className="relative min-h-[340px] px-4 py-8 sm:min-h-[420px] sm:px-8">
-          <svg viewBox="0 0 640 360" className="h-full w-full" role="img" aria-label={active.label}>
-            <rect x="24" y="40" width="180" height="250" fill="none" stroke="#243044" />
-            <text x="36" y="62" fill="#aab2b4" fontSize="10" fontFamily="IBM Plex Mono, monospace" letterSpacing="2">
+      <div className="grid lg:grid-cols-12">
+        <div className="px-3 py-6 sm:px-6 lg:col-span-7">
+          <svg viewBox="0 0 640 380" className="h-auto w-full" role="img" aria-label={active.heading}>
+            <rect x="18" y="28" width="210" height="300" fill="none" stroke="#314056" />
+            <text x="32" y="52" fill="#c4a24a" fontSize="11" fontFamily="IBM Plex Mono, monospace" letterSpacing="1.5">
               PLANT ROOM
             </text>
 
-            <motion.g animate={{ opacity: 1 }} key={mode}>
-              <motion.rect
-                x="48"
-                y="88"
-                width="52"
-                height="86"
-                fill={mode === "legacy" ? "#3a2418" : "#1c2a18"}
-                stroke={accent}
-                initial={reduce ? false : { opacity: 0.4 }}
-                animate={{ opacity: 1 }}
-              />
-              <motion.rect
-                x="112"
-                y="88"
-                width="52"
-                height="86"
-                fill={mode === "legacy" ? "#3a2418" : "#1c2a18"}
-                stroke={accent}
-                initial={reduce ? false : { opacity: 0.4 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.08 }}
-              />
-              <text x="54" y="190" fill={accent} fontSize="9" fontFamily="IBM Plex Mono, monospace">
-                {mode === "legacy" ? "BOILER 1–2" : "PLANT A"}
+            <motion.g
+              key={mode}
+              initial={reduce ? false : { opacity: 0.35 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.35 }}
+            >
+              <rect x="40" y="72" width="70" height="96" fill={fill} stroke={accent} strokeWidth="1.5" />
+              <rect x="122" y="72" width="70" height="96" fill={fill} stroke={accent} strokeWidth="1.5" />
+              <text x="40" y="190" fill={accent} fontSize="11" fontFamily="IBM Plex Mono, monospace">
+                {mode === "legacy" ? "BOILERS" : "PLANT"}
               </text>
-              <text x="54" y="204" fill="#aab2b4" fontSize="8" fontFamily="IBM Plex Mono, monospace">
+              <text x="40" y="206" fill="#d7ddd8" fontSize="10" fontFamily="IBM Plex Mono, monospace">
                 {mode === "legacy" ? "AGEING" : "EFFICIENT"}
               </text>
+              {mode === "modern" ? (
+                <text x="40" y="228" fill="#c4a24a" fontSize="10" fontFamily="IBM Plex Mono, monospace">
+                  LOW-CARBON OPTION
+                </text>
+              ) : (
+                <text x="40" y="228" fill="#aab2b4" fontSize="10" fontFamily="IBM Plex Mono, monospace">
+                  PATCH REPAIR
+                </text>
+              )}
 
               <path
-                d="M164 130 H250 V70 H430"
+                d="M192 120 H280 V64 H470"
                 fill="none"
                 stroke={accent}
-                strokeDasharray={mode === "legacy" ? "3 5" : "0"}
+                strokeWidth="1.6"
+                strokeDasharray={mode === "legacy" ? "4 6" : "0"}
               />
-              <path d="M164 160 H250 V250 H520" fill="none" stroke={accent} opacity="0.7" />
-              <circle cx="250" cy="130" r="4" fill="#0b1424" stroke={accent} />
-              <circle cx="430" cy="70" r="4" fill="#0b1424" stroke={accent} />
-              <circle cx="520" cy="250" r="4" fill="#0b1424" stroke={accent} />
+              <path
+                d="M192 168 H280 V300 H560"
+                fill="none"
+                stroke={accent}
+                strokeWidth="1.6"
+                strokeDasharray={mode === "legacy" ? "2 5" : "0"}
+                opacity="0.85"
+              />
+              <circle cx="280" cy="120" r="4.5" fill="#101b2c" stroke={accent} />
+              <circle cx="470" cy="64" r="4.5" fill="#101b2c" stroke={accent} />
+              <circle cx="560" cy="300" r="4.5" fill="#101b2c" stroke={accent} />
 
-              <rect x="400" y="48" width="110" height="44" fill="none" stroke={accent} />
-              <text x="412" y="68" fill={accent} fontSize="9" fontFamily="IBM Plex Mono, monospace">
+              <rect x="430" y="36" width="160" height="56" fill={mode === "modern" ? "#1c2814" : "none"} stroke={accent} />
+              <text x="444" y="60" fill={accent} fontSize="11" fontFamily="IBM Plex Mono, monospace">
                 {mode === "legacy" ? "AHU · LIMITED" : "AHU · MODULATED"}
               </text>
-              <text x="412" y="82" fill="#aab2b4" fontSize="8" fontFamily="IBM Plex Mono, monospace">
+              <text x="444" y="76" fill="#d7ddd8" fontSize="10" fontFamily="IBM Plex Mono, monospace">
                 DISTRIBUTION
               </text>
 
-              <rect x="470" y="228" width="130" height="48" fill="none" stroke={accent} />
-              <text x="482" y="250" fill={accent} fontSize="9" fontFamily="IBM Plex Mono, monospace">
+              <rect x="430" y="248" width="180" height="64" fill={mode === "modern" ? "#1c2814" : "none"} stroke={accent} />
+              <text x="444" y="274" fill={accent} fontSize="11" fontFamily="IBM Plex Mono, monospace">
                 {mode === "legacy" ? "CONTROLS · PARTIAL" : "BMS · INTEGRATED"}
               </text>
-              <text x="482" y="264" fill="#aab2b4" fontSize="8" fontFamily="IBM Plex Mono, monospace">
+              <text x="444" y="292" fill="#d7ddd8" fontSize="10" fontFamily="IBM Plex Mono, monospace">
                 {mode === "legacy" ? "REACTIVE" : "MONITORED"}
               </text>
             </motion.g>
           </svg>
-          <p className="mt-2 font-mono text-[10px] tracking-[0.14em] text-steel uppercase">
-            Illustrative schematic — not measured data from a specific building.
-          </p>
         </div>
-      </div>
 
-      <div className="border-t border-gold/15 lg:col-span-5 lg:border-t-0 lg:border-l">
-        <div className="px-5 py-8 sm:px-8">
-          <p className="font-mono text-[10px] tracking-[0.2em] text-gold uppercase">{active.kicker}</p>
-          <h3 className="mt-3 font-display text-2xl tracking-tight">{active.label}</h3>
-          <p className="mt-4 text-sm leading-relaxed text-steel">{active.copy}</p>
-          <ul className="mt-8 space-y-5">
-            {active.nodes.map((node) => (
-              <li key={node.title} className="border-t border-gold/10 pt-4">
-                <p className="font-display text-sm tracking-tight text-cream">{node.title}</p>
-                <p className="mt-1.5 text-sm leading-relaxed text-steel">{node.body}</p>
+        <div className="border-t border-white/10 px-5 py-7 sm:px-7 lg:col-span-5 lg:border-t-0 lg:border-l" aria-live="polite">
+          <p className="font-mono text-[10px] tracking-[0.18em] uppercase" style={{ color: accent }}>
+            {mode === "legacy" ? "As found" : "After modernisation"}
+          </p>
+          <h3 className="mt-3 font-display text-3xl tracking-tight">{active.heading}</h3>
+          <p className="mt-4 text-sm leading-relaxed text-mist">{active.copy}</p>
+          <ul className="mt-6 space-y-4">
+            {active.points.map((point) => (
+              <li key={point.title} className="border-t border-white/10 pt-4">
+                <p className="font-display text-base text-cream">{point.title}</p>
+                <p className="mt-1 text-sm leading-relaxed text-steel">{point.body}</p>
               </li>
             ))}
           </ul>

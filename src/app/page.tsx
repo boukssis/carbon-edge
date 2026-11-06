@@ -2,9 +2,8 @@ import { FinalCta } from "@/components/ui/FinalCta";
 import { HomeHero } from "@/components/home/HomeHero";
 import {
   ExpertiseStrip,
-  FieldPreview,
+  FieldTeaser,
   FounderIntro,
-  HowWeWork,
   Introduction,
   LegacyFuture,
   SectorsPreview,
@@ -27,10 +26,13 @@ export default function HomePage() {
       <ServicesRows />
       <LegacyFuture />
       <SectorsPreview />
-      <FieldPreview />
+      <FieldTeaser />
       <FounderIntro />
-      <HowWeWork />
-      <FinalCta />
+      <FinalCta
+        eyebrow="A conversation"
+        title="Tell us about the building."
+        copy="Plant replacement, retrofit or an early assessment. The useful starting point is the system already in the building."
+      />
     </main>
   );
 }

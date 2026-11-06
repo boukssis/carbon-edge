@@ -7,38 +7,30 @@ export function ApproachTimeline() {
   const reduce = useReducedMotion();
 
   return (
-    <ol className="relative mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
+    <div className="relative mx-auto max-w-[1320px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <div className="absolute top-20 bottom-16 left-[23px] w-px bg-copper/40 lg:hidden" aria-hidden />
       <motion.div
-        className="absolute top-20 bottom-20 left-[2.15rem] w-px bg-gold/30 sm:left-[2.65rem] lg:left-[4.15rem]"
-        initial={reduce ? false : { scaleY: 0 }}
-        whileInView={{ scaleY: 1 }}
-        viewport={{ once: true }}
-        style={{ transformOrigin: "top" }}
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute top-[71px] right-8 left-8 hidden h-px origin-left bg-copper lg:block"
+        initial={reduce ? false : { scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         aria-hidden
       />
-      {approachSteps.map((step, index) => (
-        <li key={step.index} className="relative grid gap-6 py-10 lg:grid-cols-12 lg:gap-12">
-          <div className="flex items-start gap-5 lg:col-span-4">
-            <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-gold bg-navy-950 font-mono text-[11px] text-gold">
-              {step.index}
-            </span>
-            <h2 className="font-display text-3xl tracking-tight text-cream md:text-4xl">
+      <ol className="relative space-y-10 lg:grid lg:grid-cols-5 lg:gap-8 lg:space-y-0">
+        {approachSteps.map((step) => (
+          <li key={step.index} className="relative pl-10 lg:pt-10 lg:pl-0">
+            <span className="absolute top-1.5 left-0 h-3.5 w-3.5 rounded-full border border-copper bg-cream lg:top-0" />
+            <p className="font-mono text-[11px] tracking-[0.18em] text-copper">{step.index}</p>
+            <h2 className="mt-2 font-display text-3xl tracking-tight text-navy-900 lg:text-[1.65rem] lg:leading-tight">
               {step.title}
             </h2>
-          </div>
-          <div className="lg:col-span-7 lg:col-start-6">
-            <p className="font-serif text-xl leading-snug text-cream/90">{step.summary}</p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{step.detail}</p>
-            {index < approachSteps.length - 1 ? (
-              <svg className="mt-8 hidden h-12 w-40 text-gold/40 lg:block" viewBox="0 0 160 48" aria-hidden>
-                <path d="M0 24 H140" stroke="currentColor" fill="none" />
-                <path d="M128 16 L140 24 L128 32" stroke="currentColor" fill="none" />
-              </svg>
-            ) : null}
-          </div>
-        </li>
-      ))}
-    </ol>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-charcoal/80 lg:max-w-none">
+              {step.summary}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }

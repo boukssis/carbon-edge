@@ -6,7 +6,7 @@ export default function NotFound() {
       <p className="eyebrow">404</p>
       <h1 className="display-page mt-6">This page is not in the drawings.</h1>
       <p className="mt-6 max-w-xl text-steel">
-        The route does not exist on this private design preview.
+        The route does not exist.
       </p>
       <div className="mt-10">
         <Button href="/">Return home</Button>

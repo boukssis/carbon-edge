@@ -2,13 +2,11 @@ import type { Metadata } from "next";
 import { ApproachTimeline } from "@/components/approach/ApproachTimeline";
 import { FinalCta } from "@/components/ui/FinalCta";
 import { PageHero } from "@/components/ui/PageHero";
-import { RetrofitVisual } from "@/components/viz/RetrofitVisual";
-import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Our approach — from existing conditions to future performance",
   description:
-    "How Carbon Edge approaches MEP retrofit and plant modernisation: assess, plan, coordinate, implement and validate — without treating it as a secret methodology.",
+    "How Carbon Edge approaches MEP retrofit and plant modernisation: assess, plan, coordinate, implement and validate.",
 };
 
 export default function ApproachPage() {
@@ -18,34 +16,25 @@ export default function ApproachPage() {
         eyebrow="Our approach"
         title="From existing conditions"
         titleAccent="to future performance."
-        lede="Complex building modernisation starts with what is already there. The sequence below is a practical way of working with occupied, constrained and often historic buildings. It is not a proprietary Carbon Edge methodology."
+        lede="Complex building modernisation starts with what is already there: the plant, the fabric, the occupation and the constraints that decide what is possible."
       />
 
-      <section className="bg-navy-950 text-cream">
+      <section className="on-light border-y border-navy-900/10 bg-cream">
         <ApproachTimeline />
       </section>
 
-      <section className="bg-cream">
-        <div className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-          <Reveal className="max-w-3xl">
-            <p className="eyebrow">The engineering idea</p>
-            <h2 className="display-section mt-5">
-              Keep the building. Change the systems behind it.
-            </h2>
-            <p className="mt-6 text-base leading-relaxed text-charcoal/80">
-              Heritage facades and tired plant rooms often belong to the same
-              asset. Carbon Edge is set up for that contradiction: traditional
-              building-services experience, applied to decarbonisation and
-              performance rather than new-build volume.
-            </p>
-          </Reveal>
-          <Reveal delay={0.1} className="mt-12">
-            <RetrofitVisual />
-          </Reveal>
+      <section className="bg-navy-950 text-cream">
+        <div className="mx-auto max-w-[1320px] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+          <p className="eyebrow">The idea</p>
+          <h2 className="display-section mt-5 max-w-3xl">
+            Keep the building.
+            <br />
+            <span className="text-gold-light">Change the systems behind it.</span>
+          </h2>
         </div>
       </section>
 
-      <FinalCta title="If the plant room is the problem, start there." />
+      <FinalCta title="If the plant room is the problem, start there." copy="Tell us what is already installed, and what the building has to keep doing." />
     </main>
   );
 }

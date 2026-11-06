@@ -23,8 +23,7 @@ export const site = {
     "https://www.linkedin.com/company/carbon-edge-building-services/",
   companiesHouse:
     "https://find-and-update.company-information.service.gov.uk/company/17292722",
-  preview:
-    "Private design concept. This is not an official Carbon Edge website and has not been authorised for public use.",
+  preview: "Design concept. Not an authorised company website.",
 } as const;
 
 export const nav = [
@@ -52,44 +51,44 @@ export const expertiseStrip = [
 export const homeServices = [
   {
     index: "01",
-    title: "MEP decarbonisation & retrofit",
+    title: "MEP Decarbonisation & Retrofit",
     summary:
       "Practical pathways to modernise existing mechanical and electrical systems without discarding the building.",
     href: "/services#mep-decarbonisation",
   },
   {
     index: "02",
-    title: "Mechanical plant replacement",
+    title: "Mechanical Plant Replacement",
     summary:
       "Boiler and major plant upgrades planned around ageing plant rooms, access and operational continuity.",
     href: "/services#plant-replacement",
   },
   {
     index: "03",
-    title: "Low-carbon heating & cooling",
+    title: "Low-Carbon Heating & Cooling",
     summary:
-      "Heat-pump and electrification options assessed against the realities of each building, not a single template.",
+      "Heat-pump and electrification options assessed against the building, not applied as a template.",
     href: "/services#low-carbon",
   },
   {
     index: "04",
-    title: "Building management systems",
+    title: "Building Management Systems",
     summary:
-      "Controls modernisation that makes plant visible, controllable and easier to run day to day.",
+      "Controls modernisation that makes plant visible, controllable and easier to run.",
     href: "/services#bms",
   },
   {
     index: "05",
-    title: "Lifecycle & energy analysis",
+    title: "Lifecycle & Energy Analysis",
     summary:
-      "Condition review, retrofit feasibility and capital planning support for long-term plant strategy.",
+      "Condition review, retrofit feasibility and capital planning for long-term plant strategy.",
     href: "/services#lifecycle",
   },
   {
     index: "06",
-    title: "Heritage & complex commercial retrofit",
+    title: "Heritage & Complex Commercial Retrofit",
     summary:
-      "Engineering that respects fabric, limited plant space and the need to keep buildings in use.",
+      "Engineering that respects fabric, limited plant space and buildings that stay in use.",
     href: "/services#heritage",
   },
 ] as const;
@@ -123,7 +122,6 @@ export const services = [
       "Retrofit thinking that respects heritage fabric and day-to-day operations",
       "Technical language that asset managers and contractors can both use",
     ],
-    note: "Presented as specialist contractor capability grounded in the founder’s building-services experience. Individual appointments remain subject to brief, access and commercial agreement.",
   },
   {
     id: "plant-replacement",
@@ -180,7 +178,7 @@ export const services = [
       "Fewer dead-end designs that fail at plant-room or power capacity",
       "A transition plan that can sit alongside capital cycles",
     ],
-    note: "Heat pumps are presented as one family of options. Suitability is always building-specific.",
+    note: "Heat pumps are one option. Suitability depends on the building.",
   },
   {
     id: "bms",
@@ -237,7 +235,7 @@ export const services = [
       "Fewer replacement projects started without a true picture of the existing system",
       "A written basis for discussion with consultants, contractors and boards",
     ],
-    note: "No quantified energy or carbon savings are stated here. Figures belong to a specific survey and a defined set of assumptions.",
+    note: "Savings are not stated here. They belong to a defined survey.",
   },
   {
     id: "validation",
@@ -323,7 +321,6 @@ export const services = [
       "Fewer gaps between design intent and installed reality",
       "A delivery partner for the unglamorous work that makes retrofit succeed",
     ],
-    note: "Capabilities are described as the intended contracting role. They should be read as a professional offer, not as a list of completed, named appointments.",
   },
 ] as const;
 
@@ -384,9 +381,9 @@ export const sectors = [
     index: "04",
     title: "Retail & shopping centres",
     headline: "Landlord plant that has often been left behind the public-facing investment.",
-    image: "/images/british-museum.jpg",
+    image: "/images/mall.jpg",
     imageAlt:
-      "Monumental London civic architecture. Illustrative of large public-facing buildings, not a Carbon Edge project.",
+      "A multi-level retail interior. Illustrative of the retail sector, not a Carbon Edge project.",
     challenges: [
       "Ageing landlord plant behind recently refreshed malls",
       "Large building services with long distribution runs",
@@ -437,7 +434,7 @@ export const fieldActivity = [
     index: "01",
     title: "West End theatre — plant modernisation proposal",
     location: "London theatre district",
-    status: "Proposal / tender stage",
+    status: "Proposal",
     statusTone: "tender" as const,
     image: "/images/haymarket.jpg",
     imageAlt:
@@ -460,7 +457,7 @@ export const fieldActivity = [
     index: "02",
     title: "East London shopping centre — lifecycle assessment",
     location: "East London",
-    status: "Site survey and report development",
+    status: "Survey",
     statusTone: "survey" as const,
     image: "/images/hero-london.jpg",
     imageAlt:
@@ -481,7 +478,7 @@ export const fieldActivity = [
     index: "03",
     title: "Marylebone mansion block — plant replacement tender",
     location: "Marylebone",
-    status: "Tender / proposal stage",
+    status: "Tender",
     statusTone: "tender" as const,
     image: "/images/hero-facade.jpg",
     imageAlt:
@@ -502,7 +499,7 @@ export const fieldActivity = [
     index: "04",
     title: "Knightsbridge hotel — building systems review",
     location: "Knightsbridge",
-    status: "Site visit / industry activity",
+    status: "Site visit",
     statusTone: "visit" as const,
     image: "/images/coliseum.jpg",
     imageAlt:
